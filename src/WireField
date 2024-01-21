@@ -1,0 +1,73 @@
+<?php
+
+declare(strict_types=1);
+
+namespace AlexSabur\OrchidLivewire;
+
+use Orchid\Screen\Repository;
+use Orchid\Screen\Contracts\Fieldable;
+use AlexSabur\OrchidLivewire\Layouts\Livewire;
+
+class Wirefield extends Livewire implements Fieldable {
+
+    protected $attributes = [];
+
+    /**
+     * 
+     * @return mixed
+     */
+    public function render(): mixed {
+        $data = [ $this->get('name') => $this->get('value') ];
+        return $this->build(new Repository($data));
+    }
+
+    /**
+     * 
+     * @param string $key
+     * @param mixed|null $value
+     * @return static|mixed|null
+     */
+    public function get($key, $value = null): mixed {
+        return $this->attributes[$key] ?? $value;
+    }
+
+    /**
+     * 
+     * @return array
+     */
+    public function getAttributes(): array {
+        return $this->attributes;
+    }
+
+    /**
+     * 
+     * @param string $key
+     * @param mixed $value
+     * @return static
+     */
+    public function set($key, $value) {
+        $this->attributes[$key] = $value;
+        return $this;
+    }
+
+    /**
+     * 
+     * @param strng $name
+     * @return static
+     */
+    public function name($name) {
+        return $this->set('name', $name);
+    }
+
+    /**
+     * Create a new Field element.
+     * 
+     * @param string $name
+     * @param string $component
+     * @return self
+     */
+    public static function make(string $name, string $component): self {
+        return (new static($component))->name($name);
+    }
+
+}
