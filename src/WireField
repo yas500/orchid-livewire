@@ -8,7 +8,7 @@ use Orchid\Screen\Repository;
 use Orchid\Screen\Contracts\Fieldable;
 use AlexSabur\OrchidLivewire\Layouts\Livewire;
 
-class Wirefield extends Livewire implements Fieldable {
+class WireField extends Livewire implements Fieldable {
 
     protected $attributes = [];
 
